@@ -27,7 +27,7 @@ namespace Calamari.Deployment.Conventions
             var workingDirectory = deployment.CurrentDirectory;
             var originalPackagePath = deployment.Variables.Get(SpecialVariables.Action.Azure.CloudServicePackagePath);
             var newPackagePath = Path.Combine(Path.GetDirectoryName(originalPackagePath), Path.GetFileNameWithoutExtension(originalPackagePath) + "_repacked.cspkg");
-            using (var originalPackage = Package.Open(originalPackagePath, FileMode.Open))
+            using (var originalPackage = Package.Open(originalPackagePath, FileMode.Open, FileAccess.Read, FileShare.Read))
             using (var newPackage = Package.Open(newPackagePath, FileMode.CreateNew))
             {
                 var originalManifest = AzureCloudServiceConventions.ReadPackageManifest(originalPackage);
