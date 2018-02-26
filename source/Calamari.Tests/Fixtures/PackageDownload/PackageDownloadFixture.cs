@@ -371,6 +371,7 @@ namespace Calamari.Tests.Fixtures.PackageDownload
             result.AssertOutput("Package {0} v{1} successfully downloaded from feed: '{2}'", MyGetPackage.PackageId, MyGetPackage.Version, AuthFeedUri);
         }
 
+#if USE_NUGET_V3_LIBS
         [Test]
         [AuthenticatedTest(FeedUriEnvironmentVariable, FeedUsernameEnvironmentVariable, FeedPasswordEnvironmentVariable)]
         public void PrivateNuGetFeedShouldFailDownloadPackageWhenInvalidCredentials()
@@ -383,6 +384,7 @@ namespace Calamari.Tests.Fixtures.PackageDownload
             result.AssertOutput("Downloaded package will be stored in: '{0}'", MyGetPackage.DownloadFolder);
             result.AssertErrorOutput("Unable to download package: The remote server returned an error: (401) Unauthorized.");
         }
+#endif
 
         [Test]
         public void FileShareFeedShouldDownloadPackage()
